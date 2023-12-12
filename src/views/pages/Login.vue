@@ -4,9 +4,10 @@
     <form>
       <div class="mb-3">
         <label for="txtEmail" class="form-label ps-2">Email</label>
-        <CustomInput name = "email" v-model="email" rules="required|email|minLength:8"/> {{ email }}
-        <CustomCheckBox name="drinks" checked-value="coffee" /> Coffee
-        <CustomCheckBox name="drinks" checked-value="tea" /> tea
+        <CustomInput name = "email" v-model="email" rules="required|email|minLength:8"/> 
+        <!-- {{ email }} -->
+        <!-- <CustomCheckBox name="drinks" checked-value="coffee" /> Coffee
+        <CustomCheckBox name="drinks" checked-value="tea" /> tea -->
       </div>
       <div class="mb-3">
         <label for="txtPassword" class="form-label">Password</label>
@@ -29,14 +30,16 @@
 import { defineComponent, onMounted, ref } from 'vue';
 import { useForm } from 'vee-validate';
 import CustomInput from '@/components/atomics/CustomInput.vue';
-import CustomCheckBox from '@/components/atomics/CustomCheckBox.vue';
-import { isEmail } from '@/lib/validation';
+import RepositoryFactory from '@/lib/https/repositoryFactory';
+import AuthRepository from '@/lib/https/repositories/authRepository';
+import router from '@/router';
 
   export default defineComponent({
     // eslint-disable-next-line vue/multi-word-component-names
     name: "Login",
-    components: {CustomInput, CustomCheckBox },
+    components: {CustomInput },
     setup(props, { emit }) {
+      const {login} = RepositoryFactory.getRepository<AuthRepository>(AuthRepository)
       const email = ref('');
       const { values,errors, defineField, setValues,handleSubmit,resetForm,setFieldError } = useForm({
           // initialValues: {
@@ -45,15 +48,8 @@ import { isEmail } from '@/lib/validation';
           // },
           // validationSchema: {
           //   // email: (val:string) => (isEmail(val) ? true : 'Invalid email'),
-          //   email: 'required|email|min:8'
           // },
       })
-
-      // const [email, emailProps] = defineField('email');
-      
-      const login = async () => {
-        console.log("login");
-      };
 
       // const updateValue = () =>{
       //   setValues({ 
@@ -62,50 +58,45 @@ import { isEmail } from '@/lib/validation';
       //   });
       // }
 
-      // const fetchData = async () =>{
-      //   return new Promise(resolve => {
-      //     setTimeout(() => {
-      //       resolve({
-      //       email: 'test@example.com',
-      //       password: 'p@$$w0rd',
-      //       });
-      //     }, 1500);
-      //   });
-      // }
+      const fetchData = async () =>{
+        return new Promise(resolve => {
+          setTimeout(() => {
+            resolve({
+            email: 'johndoe@gmail.com',
+            password: 'password123',
+            });
+          }, 1500);
+        });
+      }
 
-      const onSubmit = handleSubmit((values, { resetForm }) => {
+      const onSubmit = handleSubmit(async (values, { resetForm }) => {
+        const response = await login(values["email"], values["password"])
 
-        // const response:any={
-        //   errors:{
-        //     email: 'Invalid email',
-        //   }
-        // }
-
-        // if (!response.errors) {
-        // resetForm();
-        //   return;
-        // }
+        if (!response.errors) {
+          resetForm();
+          router.push({ name: 'home' });
+          return;
+        }
   
-        // if (response.errors.email) {
-        //   setFieldError('email', response.errors.email);
-        // }
+        if (response.errors.email) {
+          setFieldError('email', response.errors.email);
+        }
 
       });
 
-      // onMounted(async () => {
-      //   const data = await fetchData();
-      //   resetForm({
-      //     values: data,
-      //     errors: {
-      //       email: '',
-      //       }, 
-      //     });
-      // });
+      onMounted(async () => {
+        const data = await fetchData();
+        resetForm({
+          values: data,
+          errors: {
+            email: '',
+            }, 
+          });
+      });
 
       return {
         login, onSubmit, email, values, errors,
-        // email,emailProps,errors,
       };
     },
   });
-</script>
+</script>@/lib/helps

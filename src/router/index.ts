@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/pages/HomeView.vue'
-import LocalStorage from '@/lib/LocalStorage';
+import VueCookies from 'vue-cookies';
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,17 +29,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if(to.meta.title != undefined){
-    const localStorage = new LocalStorage();
-    const token = localStorage.get('token');
-    if(token == null){
+
+  const access_token = VueCookies.get('access_token');
+
+  if (access_token == null){
       if(to.name != 'login'){
         next('/login')
       }else{
         next()
       }
     }
-  }
 })
 
 export default router

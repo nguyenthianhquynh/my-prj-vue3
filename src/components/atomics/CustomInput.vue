@@ -24,7 +24,6 @@ export default defineComponent({
             syncVModel: true
         });
 
-        // const { value, errorMessage } = useField('email', isEmail);
         return {
             value,
             errorMessage,
