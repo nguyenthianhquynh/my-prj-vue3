@@ -59,3 +59,7 @@ npm install vee-validate --save
 how to run
 npm i
 npm run dev
+
+```state management
+pinia
+```

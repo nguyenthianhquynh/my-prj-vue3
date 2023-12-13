@@ -1,44 +1,58 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/pages/HomeView.vue'
-import VueCookies from 'vue-cookies';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
-      meta:{title:"Home"}
+      component: () => import('../views/layouts/afterLoginLayout.vue'),
+      children:[{
+        path:'',
+        name:'home',
+        component:HomeView,
+        meta:{title:"Home"}
+      }]
     },
     {
       path:'/login',
-      name:'login',
-      component:() => import('../views/pages/Login.vue'),
-      meta:{title:"Login"}
+      component:() => import('../views/layouts/loginLayout.vue'),
+      children:[
+        {
+          path:"",
+          meta: { title: "Login" },
+          name: 'login',
+          component: () => import('../views/pages/Login.vue')
+        }
+      ]
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-
-  const access_token = VueCookies.get('access_token');
-
-  if (access_token == null){
+  const cookies = document.cookie.split('; ');
+  if(cookies.length <= 0){
+    next('/login')
+  }
+  
+  const logged_in = cookies.find(data => data.startsWith("logged_in"));
+  const isLogged = logged_in?.split('=')[1];
+  if (isLogged == undefined || isLogged == 'false'){
       if(to.name != 'login'){
         next('/login')
       }else{
         next()
       }
     }
+  else{
+    next()
+  }
 })
+
 
 export default router

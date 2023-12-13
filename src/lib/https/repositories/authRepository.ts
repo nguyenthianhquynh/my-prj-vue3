@@ -1,6 +1,5 @@
 import { APIResponse } from "@/models/ApiResponse";
 import Repository from "../repository";
-import VueCookies from 'vue-cookies';
 
 // Import Axios
 export default class AuthRepository extends Repository {
@@ -12,9 +11,15 @@ export default class AuthRepository extends Repository {
                 password: password,
             });
 
-            VueCookies.set('access_token', response.data.access_token, '1d', null, null, true, 'Strict');
-
             return response.data;
+        } catch (error:any) {
+            return (new APIResponse(500, error.message, null));
+        }
+    }
+
+    logout = async () => {
+        try {
+            await this.axios.get('/logout');
         } catch (error:any) {
             return (new APIResponse(500, error.message, null));
         }
