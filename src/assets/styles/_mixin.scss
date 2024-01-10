@@ -3,3 +3,20 @@
         @content;
     }
 }
+
+@mixin flex($j: normal, $a: normal) {
+    display: flex;
+    justify-content: $j;
+    align-items: $a;
+    flex-wrap: wrap;
+
+    @content;
+}
+
+@mixin fz($size: m) {
+    font-size: map-get($fz, $size);
+}
+
+@mixin fw($weight: m) {
+    font-weight: map-get($fw, $weight);
+}

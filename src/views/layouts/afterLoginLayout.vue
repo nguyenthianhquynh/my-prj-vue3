@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <Header/>
+            after login header
             <div>
                 <router-view/>
                 <Footer/>
@@ -10,8 +10,8 @@
     </div>
 </template>
 <script>
-import Header from './part/TheHeader.vue'
-import Footer from './part/TheFooter.vue'
+import Header from './sections/TheHeader.vue'
+import Footer from './sections/TheFooter.vue'
 export default {
     name: 'AfterLoginLayout',
     components: {
