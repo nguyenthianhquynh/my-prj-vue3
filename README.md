@@ -56,10 +56,11 @@ npm install axios
 npm install vee-validate --save
 ```
 
-how to run
-npm i
-npm run dev
+```Bundled with
+Vite
+```
 
 ```state management
-pinia
+Pinia Lib
 ```
+

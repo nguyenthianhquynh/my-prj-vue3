@@ -3,7 +3,7 @@ import Repository from "../repository";
 
 // Import Axios
 export default class AuthRepository extends Repository {
-    login = async (username: string, password: string) =>  {
+    apiLogin = async (username: string, password: string) =>  {
         try {
             // Gửi yêu cầu đăng nhập và nhận JWT từ máy chủ
             const response = await this.axios.post('/login', {

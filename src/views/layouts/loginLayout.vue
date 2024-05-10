@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="min-h-[640px] bg-white">
         <Header />
         <div>
             <router-view />
@@ -8,20 +8,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import Header from './sections/TheHeader.vue'
 import Footer from './sections/TheFooter.vue'
-
-export default {
-    name: 'LoginLayout',
-    components: {
-        // eslint-disable-next-line vue/no-reserved-component-names
-        Header,
-        // eslint-disable-next-line vue/no-reserved-component-names
-        Footer
-    }
-}
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

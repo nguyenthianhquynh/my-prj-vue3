@@ -1,10 +1,9 @@
 @import './base.scss';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  // max-width: 1280px;
+  // margin: 0 auto;
+  // font-weight: normal;
 }
 
 a,
@@ -15,21 +14,23 @@ a,
   padding: 3px;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
 @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+    // display: flex;
+    // place-items: center;
   }
 
   #app {
     // display: grid;
     // grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    // padding: 0 2rem;
+  }
+}
+
+.bg-dark-brown {
+  background-color: #4C392D;
+  color: #fff;
+  a {
+    color: #fff;
   }
 }

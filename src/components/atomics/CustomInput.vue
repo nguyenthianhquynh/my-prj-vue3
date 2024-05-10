@@ -1,41 +1,41 @@
 <template>
-    <input class="form__input" v-model="value" :type="type || 'text'" @input="handleChange"/>
-    {{ errorMessage }}
+    <div>
+        <input class="form__input" v-model="value" :type="type || 'text'" @input="handleChange" />
+        <div class="error-msg-style" v-if="errorMessage">
+            <OptionDropdown>
+                {{ errorMessage }}
+            </OptionDropdown>
+        </div>
+    </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
 import { useField } from 'vee-validate';
+import OptionDropdown from "@/components/atomics/OptionDropdown.vue";
 
-export default defineComponent({
-    name: 'CustomInput',
-    props: {
-        name: {
-            type: String,
-            required: true
-        },
+const props = defineProps({
+    type: String,
+    name: {
         type: String,
-        modelValue: String, //binding value of v-model with the parent component
-        rules: { type: String, default: "" },
+        required: true
     },
-    setup(props) {
-        const { value, errorMessage, handleChange } = useField(() => props.name, props.rules,{
-            //validateOnValueUpdate: true,
-            syncVModel: true
-        });
+    rules: {
+        type: String,
+        default: ""
+    },
+    modelValue: String,
+})
 
-        return {
-            value,
-            errorMessage,
-            handleChange
-        }
-    }
+const { value, errorMessage, handleChange } = useField(() => props.name, props.rules, {
+    //validateOnValueUpdate: true,
+    syncVModel: true
 });
+
 </script>
 
 <style lang="scss">
 /*Input focus move up label*/
-.form__input:focus + .form__label {
+.form__input:focus+.form__label {
     top: -.5rem;
     left: .8rem;
     color: var(--first-color);
@@ -45,7 +45,7 @@ export default defineComponent({
 }
 
 /*Input focus sticky top label*/
-.form__input:not(:placeholder-shown).form__input:not(:focus) + .form__label {
+.form__input:not(:placeholder-shown).form__input:not(:focus)+.form__label {
     top: -.5rem;
     left: .8rem;
     z-index: 10;
@@ -56,5 +56,12 @@ export default defineComponent({
 /*Input focus*/
 .form__input:focus {
     border: 2px solid var(--first-color);
+}
+
+.error-msg-style {
+    @include fz(xs);
+    @include fw(medium);
+    width: 100%;
+    text-align: left;
 }
 </style>

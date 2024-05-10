@@ -1,3 +1,6 @@
+// OEM Colors
+$oem1color: #003170;
+
 $mq-breakpoints: (
     xl: 1200px,
     l: 960px,
@@ -6,3 +9,19 @@ $mq-breakpoints: (
 );
 
 $secondary4: #271B5A;
+
+$fz: (
+    xl: 2.5rem,
+    l: 2rem,
+    m: 1.5rem,
+    s: 1rem
+);
+
+$fw: (
+    bold: 700,
+    normal: 400,
+    light: 300
+);
+
+$primary: #FFC700;
+

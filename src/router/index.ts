@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/pages/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,9 +8,9 @@ const router = createRouter({
       component: () => import('../views/layouts/afterLoginLayout.vue'),
       children:[{
         path:'',
+        meta: { title: "Home" },
         name:'home',
-        component:HomeView,
-        meta:{title:"Home"}
+        component: () => import('../views/pages/HomeView.vue'),
       }]
     },
     {
@@ -22,7 +21,7 @@ const router = createRouter({
           path:"",
           meta: { title: "Login" },
           name: 'login',
-          component: () => import('../views/pages/Login.vue')
+          component: () => import('../views/pages/LoginPage.vue')
         }
       ]
     },
@@ -44,7 +43,8 @@ router.beforeEach((to, from, next) => {
   const isLogged = logged_in?.split('=')[1];
   if (isLogged == undefined || isLogged == 'false'){
       if(to.name != 'login'){
-        next('/login')
+        //next('/login')
+        next()
       }else{
         next()
       }
