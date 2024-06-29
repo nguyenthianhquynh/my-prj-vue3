@@ -1,11 +1,12 @@
 <template>
   <div>
     <div class="">
+      <BrandLogo></BrandLogo>
       <form action="" class="form">
         <h1 class="form__title">Sign In</h1>
 
-        <!-- <div class="form__div">
-          <CustomInput name="email" v-model="email" rules="required|email|minLength:8" />
+        <div class="form__div">
+          <!-- <CustomInput name="email" v-model="email" rules="required|email|minLength:8" /> -->
 
           <label for="" class="form__label">Email</label>
         </div>
@@ -15,7 +16,7 @@
           <label for="txtPassword" class="form__label">Password</label>
         </div>
 
-        <input type="submit" class="form__button" value="Sign In" @click="onSubmit">
+        <!-- <input type="submit" class="form__button" value="Sign In" @click="onSubmit">
         {{ values }} -->
 
       </form>
@@ -30,12 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, onMounted, ref } from 'vue';
-import { useForm } from 'vee-validate';
-import CustomInput from '@/components/atomics/CustomInput.vue';
-import RepositoryFactory from '@/lib/https/repositoryFactory';
-import AuthRepository from '@/lib/https/repositories/authRepository';
-import router from '@/router';
+import BrandLogo from '@/components/BrandLogo.vue';
 
 // export default defineComponent({
 //   // eslint-disable-next-line vue/multi-word-component-names

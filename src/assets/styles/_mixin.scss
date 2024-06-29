@@ -4,11 +4,21 @@
     }
 }
 
+
 @mixin flex($j: normal, $a: normal) {
     display: flex;
     justify-content: $j;
     align-items: $a;
     flex-wrap: wrap;
+
+    @content;
+}
+
+@mixin flex($j:center, $a:center, $dir: row) {
+    display: flex;
+    justify-content: $j;
+    align-items: $a;
+    flex-direction: $dir;
 
     @content;
 }
